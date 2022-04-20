@@ -60,6 +60,7 @@ const getUserWithId = function(id) {
       throw new Error(err.message);
     });
   };
+
 exports.getUserWithId = getUserWithId;
 
 
@@ -84,6 +85,7 @@ const addUser =  function(user) {
       throw new Error(err.message);
     });
   };
+
 exports.addUser = addUser;
 
 /// Reservations
@@ -115,6 +117,7 @@ const getAllReservations = function(guest_id, limit = 10) {
       throw new Error(err.message);
     });
   };
+
   exports.getAllReservations = getAllReservations;
 
 /// Properties
@@ -211,4 +214,5 @@ const addProperty = function(property) {
         throw new Error(err.message);
       });
     };
+    
 exports.addProperty = addProperty;
