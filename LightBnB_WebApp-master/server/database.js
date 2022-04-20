@@ -32,6 +32,7 @@ const getUserWithEmail = function(email) {
     })
     .catch((err) => {
       console.log(err.message);
+      throw new Error(err.message);
     });
   };
 
@@ -56,10 +57,9 @@ const getUserWithId = function(id) {
     })
     .catch((err) => {
       console.log(err.message);
+      throw new Error(err.message);
     });
   };
-//   return Promise.resolve(users[id]);
-// }
 exports.getUserWithId = getUserWithId;
 
 
@@ -81,13 +81,9 @@ const addUser =  function(user) {
     })
     .catch((err) => {
       console.log(err.message);
+      throw new Error(err.message);
     });
   };
-//   const userId = Object.keys(users).length + 1;
-//   user.id = userId;
-//   users[userId] = user;
-//   return Promise.resolve(user);
-// }
 exports.addUser = addUser;
 
 /// Reservations
@@ -116,6 +112,7 @@ const getAllReservations = function(guest_id, limit = 10) {
     })
     .catch((err) => {
       console.log(err.message);
+      throw new Error(err.message);
     });
   };
   exports.getAllReservations = getAllReservations;
@@ -168,28 +165,15 @@ const getAllProperties = function(options, limit = 10) {
       ORDER BY cost_per_night
       LIMIT $${queryParams.length};
       `;
-      console.log(queryString, queryParams);
-      return pool.query(queryString, queryParams).then((res) => res.rows).catch((err) => console.log(err.message));
+      return pool.query(queryString, queryParams)
+        .then((res) => res.rows)
+        .catch((err) => {
+          console.log(err.message);
+          throw new Error(err.message);
+        });
     };
     
     exports.getAllProperties = getAllProperties;
-
-// exports.getAllProperties = (options, limit = 10) => {;
-//  return pool
-//   .query(
-//     `
-//     SELECT *
-//     FROM properties
-//     LIMIT $1;
-//     `,
-//       [limit])
-//       .then((result) => {
-//       return result.rows;
-//     })
-//     .catch((err) => {
-//       console.log(err.message);
-//     });
-//   };
 
 /**
  * Add a property to the database
@@ -224,6 +208,7 @@ const addProperty = function(property) {
       })
       .catch((err) => {
         console.log(err.message);
+        throw new Error(err.message);
       });
     };
 exports.addProperty = addProperty;
